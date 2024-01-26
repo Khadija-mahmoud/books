@@ -5,23 +5,23 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///books.db'  # SQLite database file
 db = SQLAlchemy(app)
 
-# Define the Book model
+# defining
 class Book(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(255), nullable=False)
     author = db.Column(db.String(255), nullable=False)
     publication_year = db.Column(db.Integer, nullable=False)
 
-# Create the database tables
+# making tables
 with app.app_context():
     db.create_all()
-
+# link to main web
 @app.route('/')
 def index():
     # Display a list of books
     books = Book.query.all()
     return render_template('index.html', books=books)
-
+#link to adding books
 @app.route('/add_book', methods=['GET', 'POST'])
 def add_book():
     if request.method == 'POST':
@@ -39,3 +39,5 @@ def add_book():
 
 if __name__ == '__main__':
     app.run(debug=True)
+
+#there is an issue with the environment using conda and the original environment isnt allowing my code to run properly.
